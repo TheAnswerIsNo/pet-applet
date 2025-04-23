@@ -2,7 +2,7 @@ import { useLoad } from '@tarojs/taro'
 import './index.scss'
 import Taro from '@tarojs/taro'
 import { useState } from 'react'
-import { wecahtLogin } from '../../services/user/api'
+import { wecahtLogin } from '../../services/api'
 import { View } from '@tarojs/components'
 import { Button } from '@nutui/nutui-react-taro'
 
@@ -17,10 +17,6 @@ export default function Index() {
 
   const handleAgreePrivacyAuthorization = () => {
     setShow(false)
-  }
-
-  const reject = () => {
-    getPrivacySetting()
   }
 
   const getPrivacySetting = () => {
@@ -50,7 +46,6 @@ export default function Index() {
         success: async function (wechatLoginRes) {
           if (wechatLoginRes.code) {
             const res = await wecahtLogin({ code: wechatLoginRes.code, phoneCode: phoneCode })
-            console.log(res);
             if (res.code === 200) {
               setLoading(false)
               Taro.redirectTo({ url: '/pages/index/index' })
@@ -68,7 +63,7 @@ export default function Index() {
 
   return (
     <View>
-      <Button
+      <Button type='primary'
         openType={'getPhoneNumber' || 'agreePrivacyAuthorization'}
         onGetPhoneNumber={getphonenumber || handleAgreePrivacyAuthorization}
         loading={loading}>

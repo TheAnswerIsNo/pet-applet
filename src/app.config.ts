@@ -10,6 +10,10 @@ export default defineAppConfig({
     'pages/my/index',
     'pages/cart/index',
     'pages/adopt/index',
+    'pages/giveUpAdopt/index',
+    'pages/applyAdoptList/index',
+    'pages/applyAdoptDetail/index',
+    'pages/adoptForm/index',
   ],
   window: {
     backgroundTextStyle: 'light',
