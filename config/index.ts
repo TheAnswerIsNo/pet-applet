@@ -5,13 +5,13 @@ import prodConfig from './prod'
 // https://taro-docs.jd.com/docs/next/config#defineconfig-辅助函数
 export default defineConfig<'webpack5'>(async (merge, { command, mode }) => {
   const baseConfig: UserConfigExport<'webpack5'> = {
-    // sass: {
-    //   data: `@import "@nutui/nutui-taro/dist/styles/variables.scss";`
-    //   // JMAPP 主题
-    //   // data: `@import '@nutui/nutui-react-taro/dist/styles/variables-jmapp.scss';`
-    //   // JRKF 主题
-    //   // data: `@import '@nutui/nutui-react-taro/dist/styles/variables-jrkf.scss';`
-    // },
+    sass: {
+      data: `@import "@nutui/nutui-react-taro/dist/styles/variables.scss";`
+      // JMAPP 主题
+      // data: `@import '@nutui/nutui-react-taro/dist/styles/variables-jmapp.scss';`
+      // JRKF 主题
+      // data: `@import '@nutui/nutui-react-taro/dist/styles/variables-jrkf.scss';`
+    },
     projectName: 'pet-applet',
     date: '2025-4-23',
     designWidth: 375,

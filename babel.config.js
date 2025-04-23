@@ -18,11 +18,11 @@ module.exports = {
         "style": 'css',
         "camel2DashComponentName": false,
         customName: (name, file) => {
-          return `@nutui/nutui-react-taro/dist/es/packages/${name.toLowerCase()}`
+          return `@nutui/nutui-react-taro/dist/esm/${name.toLowerCase()}`
         },
         // 自动加载 scss 样式文件
         customStyleName: (name) =>
-          `@nutui/nutui-react-taro/dist/es/packages/${name.toLowerCase()}/style`,
+          `@nutui/nutui-react-taro/dist/esm/${name.toLowerCase()}/style`,
         // 自动加载 css 样式文件
         // customStyleName: (name) => `@nutui/nutui-react-taro/dist/es/packages/${name.toLowerCase()}/style/css`
 

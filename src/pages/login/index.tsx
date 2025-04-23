@@ -3,7 +3,8 @@ import './index.scss'
 import Taro from '@tarojs/taro'
 import { useState } from 'react'
 import { wecahtLogin } from '../../services/user/api'
-import { Button, View } from '@tarojs/components'
+import { View } from '@tarojs/components'
+import { Button } from '@nutui/nutui-react-taro'
 
 export default function Index() {
   const [loading, setLoading] = useState<boolean>(false)
