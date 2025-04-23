@@ -36,10 +36,13 @@ function getHost(url: string) {
 
 export const getData = async (url: string, params?: object): Promise<ResponseDataType> => {
   const host = getHost(url)
-  Taro.addInterceptor(addTokenInterceptor)
+  // Taro.addInterceptor(addTokenInterceptor)
   const result = await Taro.request({
     method: 'GET',
     url: host,
+    header: {
+      Authorization: Taro.getStorageSync('token') || ''
+    },
     data: params,
     fail: function (res) {
       Taro.showToast({ title: res.errMsg, icon: 'error' })
@@ -54,13 +57,14 @@ export const getData = async (url: string, params?: object): Promise<ResponseDat
 
 export const postData = async (url: string, data?: object): Promise<ResponseDataType> => {
   const host = getHost(url)
-  Taro.addInterceptor(addTokenInterceptor)
+  // Taro.addInterceptor(addTokenInterceptor)
   const result = await Taro.request({
     method: 'POST',
     url: host,
     data: data,
     header: {
-      'content-type': 'application/json'
+      'content-type': 'application/json',
+      Authorization: Taro.getStorageSync('token') || ''
     },
     fail: function (res) {
       Taro.showToast({ title: res.errMsg, icon: 'error' })
