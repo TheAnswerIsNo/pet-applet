@@ -117,7 +117,6 @@ export default () => {
 
     const getAddressList = async () => {
         const res = await getAddressListAPI()
-        console.log(res)
         if (res.code === 200) setAddressList(res.data)
     }
 

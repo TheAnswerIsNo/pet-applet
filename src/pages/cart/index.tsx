@@ -57,6 +57,7 @@ export default function Index() {
     Taro.navigateTo({
       url: '/pages/payment/index?data=' + encodeURIComponent(JSON.stringify({
         list: goodsList,
+        idList: controlledGroup,
         totalNumber: number,
         totalPrice: totalNumber
       }))
