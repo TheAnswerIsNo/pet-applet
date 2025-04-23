@@ -1,3 +1,3 @@
 export default definePageConfig({
-    navigationBarTitleText: '付款'
+    navigationBarTitleText: '提交订单'
 })

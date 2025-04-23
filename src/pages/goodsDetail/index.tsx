@@ -47,7 +47,6 @@ const goodsDetail = () => {
         })
         if (res.code === 200) {
             setShowToast(true)
-            setShowToast(true)
         }
     }
     return <div >
@@ -81,7 +80,7 @@ const goodsDetail = () => {
                 </div>
             }
         >
-            {data.photos.map((item) => (
+            {data.photos.map((item: any) => (
                 <Swiper.Item key={item}>
                     <Image style={{ width: '100%', height: '100%' }} src={item} />
                 </Swiper.Item>

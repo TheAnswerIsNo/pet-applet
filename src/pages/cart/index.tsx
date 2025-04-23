@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
-import { Button, Card, Cell, Checkbox, Dialog, Price } from '@nutui/nutui-react-taro'
-import { getCartAPI } from 'src/services/home'
-import Taro from '@tarojs/taro'
+import { Button, Card, Cell, Checkbox, Dialog, Price, Toast } from '@nutui/nutui-react-taro'
+import { deleteCartAPI, getCartAPI } from 'src/services/home'
+import Taro, { useDidShow } from '@tarojs/taro'
 
 export default function Index() {
   const [list, setList] = useState<Array<any>>([])
@@ -10,7 +10,7 @@ export default function Index() {
   const [totalNumber, setTotalNumber] = useState(0)
   const [disabled, setDisabled] = useState(true)
   const checkboxgroup2Ref = useRef(null)
-
+  const [showToast, setShowToast] = useState(false)
 
   const selectAll = () => {
     if (selected) {
@@ -44,30 +44,48 @@ export default function Index() {
   const payment = () => {
     const data = () => {
       const temp: any = []
+      let number = 0
       list.forEach((item: any) => {
-        if (controlledGroup.includes(item.id)) temp.push(item)
+        if (controlledGroup.includes(item.id)) {
+          temp.push(item)
+          number += item.number
+        }
       })
-      return temp
+      return { goodsList: temp, number }
     }
+    const { goodsList, number } = data()
     Taro.navigateTo({
       url: '/pages/payment/index?data=' + encodeURIComponent(JSON.stringify({
-        list: data(),
-        totalNumber: totalNumber
+        list: goodsList,
+        totalNumber: number,
+        totalPrice: totalNumber
       }))
     })
-    
+
   }
 
-  //分类列表
+  const deleteGood = (id: string) => {
+    deleteGoods(id)
+  }
+
+  //列表
   const getCartList = async () => {
     const res = await getCartAPI()
     if (res.code === 200) setList(res.data)
   }
 
+  const deleteGoods = async (id: string) => {
+    const res = await deleteCartAPI(id)
+    if (res.code === 200) {
+      setShowToast(true)
+      getCartList()
+    }
+  }
 
-  useEffect(() => {
+  useDidShow(() => {
     getCartList()
-  }, [])
+  })
+
   return (
     <>
       <Cell className="nut-cell">
@@ -90,7 +108,12 @@ export default function Index() {
                   title={val.name}
                   price={val.price}
                   delivery={'厂商配送'}
-                  tag={<div> {val.description} </div>}
+                  tag={<div> {val.description}
+                  </div>}
+                  extra={<div style={{ color: 'red' }} onClick={(e) => {
+                    e.stopPropagation()
+                    deleteGood(val.id)
+                  }}>删除</div>}
                 />
               </Checkbox>
             )
@@ -106,7 +129,11 @@ export default function Index() {
           去结算
         </Button>
       </div>
-      
+      <Toast
+        duration={1}
+        title={'删除成功'}
+        visible={showToast}
+      />
     </>
   )
 }

@@ -4,6 +4,8 @@ export default defineAppConfig({
     'pages/login/index',
     'pages/index/index',
     'pages/goodsDetail/index',
+    'pages/address/index',
+    'pages/submit/index',
     'pages/payment/index',
     'pages/my/index',
     'pages/cart/index',
