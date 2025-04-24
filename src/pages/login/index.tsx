@@ -48,7 +48,8 @@ export default function Index() {
             const res = await wecahtLogin({ code: wechatLoginRes.code, phoneCode: phoneCode })
             if (res.code === 200) {
               setLoading(false)
-              Taro.redirectTo({ url: '/pages/index/index' })
+              Taro.setStorageSync('user', res.data)
+              Taro.switchTab({ url: '/pages/index/index' })
               Taro.showToast({ title: res.msg || '', icon: 'success' })
             } else {
               Taro.showToast({ title: res.msg || '', icon: 'error' })

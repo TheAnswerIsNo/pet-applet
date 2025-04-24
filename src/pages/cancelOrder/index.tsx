@@ -2,7 +2,7 @@ import { Button, Card, Dialog, Divider, Tabs, Toast } from "@nutui/nutui-react-t
 import Taro from "@tarojs/taro";
 import { useRouter } from "@tarojs/taro";
 import { useState } from "react";
-import {  paymentAPI } from "src/services/order";
+import { cancelAPI, paymentAPI } from "src/services/order";
 
 export default () => {
     const router: any = useRouter();
@@ -40,10 +40,36 @@ export default () => {
         }
     }
 
-    const cancel = async () => {
-        Taro.navigateTo({
-            url: '/pages/cancelOrder/index?data=' + encodeURIComponent(JSON.stringify(data)) + "&orderId=" + orderId
+    const openCancelDialog = async () => {
+        Dialog.open('cancel', {
+            title: '取消订单',
+            content: `是否确认取消订单?`,
+            onConfirm: () => {
+                cancelOrder()
+            },
+            onCancel: () => {
+                Dialog.close('cancel')
+            },
         })
+    }
+
+    const cancel = async () => {
+        Taro.reLaunch({
+            url: '/pages/orderList/index?status=0'
+        })
+    }
+
+    const cancelOrder = async () => {
+        const res = await cancelAPI(orderId)
+        if (res.code === 200) {
+            Taro.reLaunch({
+                url: '/pages/orderList/index?status=4'
+            })
+        }
+        else {
+            setTitle('取消订单失败')
+            setShowToast(true)
+        }
     }
 
 
@@ -62,11 +88,15 @@ export default () => {
             }
             <div style={{ width: '100%', background: '#f7f8f8', position: 'fixed', bottom: '0', height: '60px', display: 'flex', justifyContent: 'space-around', alignItems: 'center' }}>
                 <text> 总数量: <text style={{ color: 'red' }}>{data.totalNumber}</text></text><text> 总价: <text style={{ color: 'red' }}>￥{data.totalPrice}</text></text>
+                <Button type="success" onClick={openCancelDialog}>
+                    取消订单
+                </Button>
                 <Button type="success" onClick={submit}>
                     付款
                 </Button>
             </div>
             <Dialog id="pay" />
+            <Dialog id="cancel" />
             <Toast
                 duration={1}
                 title={title}

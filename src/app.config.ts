@@ -6,6 +6,8 @@ export default defineAppConfig({
     'pages/goodsDetail/index',
     'pages/address/index',
     'pages/submit/index',
+    'pages/orderList/index',
+    'pages/cancelOrder/index',
     'pages/payment/index',
     'pages/my/index',
     'pages/cart/index',
