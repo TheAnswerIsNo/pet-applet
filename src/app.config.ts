@@ -14,6 +14,7 @@ export default defineAppConfig({
     'pages/applyAdoptList/index',
     'pages/applyAdoptDetail/index',
     'pages/adoptForm/index',
+    'pages/dynamic/index',
   ],
   window: {
     backgroundTextStyle: 'light',
@@ -29,6 +30,10 @@ export default defineAppConfig({
     {
       pagePath: 'pages/adopt/index',
       text: '领养'
+    },
+    {
+      pagePath: 'pages/dynamic/index',
+      text: '动态'
     },
     {
       pagePath: 'pages/cart/index',

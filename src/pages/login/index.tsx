@@ -2,7 +2,7 @@ import { useLoad } from '@tarojs/taro'
 import './index.scss'
 import Taro from '@tarojs/taro'
 import { useState } from 'react'
-import { wecahtLogin } from '../../services/api'
+import { wecahtLogin } from '../../services/user'
 import { View } from '@tarojs/components'
 import { Button } from '@nutui/nutui-react-taro'
 
