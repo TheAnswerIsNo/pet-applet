@@ -8,7 +8,9 @@ import { sexType } from 'src/constant/sexType'
 import { useRef, useState } from 'react'
 import Taro from '@tarojs/taro'
 
-
+interface uploadRefState {
+  submit: () => void
+}
 export default function Index() {
   const uploadRef = useRef(null)
   const [formData, setFormData] = useState<any>(null)
