@@ -1,36 +1,17 @@
 import { View } from '@tarojs/components'
 import './index.scss'
 import {
-  Cell, Tag, Form, Uploader, Input, Picker, InputNumber, Radio, Checkbox, Button, FileItem,
+  Cell, Tag, Form, Uploader, Input, Picker, InputNumber, Radio, Checkbox, Button,
 } from '@nutui/nutui-react-taro'
 import { petType } from 'src/constant/petType'
 import { sexType } from 'src/constant/sexType'
-import { giveUpAdopt } from 'src/services/adopt'
-import Taro from '@tarojs/taro'
 import { useRef, useState } from 'react'
+import Taro from '@tarojs/taro'
 
 
 export default function Index() {
   const uploadRef = useRef(null)
-  const formData = useRef({})
-
-  // const submitUpload = () => {
-  //   uploadRef.current.submit()
-  // }
-
-  async function submit(values: any): Promise<void> {
-    const res = await giveUpAdopt(values)
-    if (res.code === 200) {
-      Taro.showToast({
-        title: '提交成功',
-        icon: 'success',
-        duration: 2000
-      })
-    }
-  }
-
-
-
+  const [formData, setFormData] = useState<any>(null)
   return (
     <>
       <Form
@@ -42,7 +23,7 @@ export default function Index() {
               width: '100%',
             }}
           >
-            <Button nativeType="submit" type="primary" >
+            <Button nativeType="submit" type="primary">
               提交
             </Button>
             <Button nativeType="reset" style={{ marginLeft: '20px' }}>
@@ -51,18 +32,20 @@ export default function Index() {
           </View>
         }
         onFinish={(values) => {
-          const data = Object.assign(values, {
-            sex: values.sex[0],
-            type: values.type[0]
-          })
-          formData.current = data
-          console.log(formData.current)
+          setFormData(values)
           uploadRef.current.submit()
         }}>
         <Form.Item label="照片" name='photos' required >
-          <Uploader url='http://localhost:8081/adopt/give-up'
-            headers={{ Authorization: Taro.getStorageSync('token') || '' }}
-            name='photos' data={formData.current} ref={uploadRef} autoUpload={false} multiple={true} maxCount={6} />
+          <Uploader multiple={true}
+            ref={uploadRef}
+            maxCount={6}
+            url='http://localhost:8081/adopt/give-up'
+            headers={{
+              Authorization: Taro.getStorageSync('token') || ''
+            }}
+            autoUpload={false}
+            data={formData}
+          />
         </Form.Item>
         <View>
           <Tag type="info"> 宠物信息 </Tag>
