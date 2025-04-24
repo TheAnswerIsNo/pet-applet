@@ -1,7 +1,7 @@
 import { Button, Form, Input, InputNumber, Radio, Toast } from '@nutui/nutui-react-taro'
 import './index.scss'
 import { View } from '@tarojs/components'
-import { appluAdopt } from 'src/services/adopt'
+import { applyAdopt } from 'src/services/adopt'
 import { useState } from 'react'
 import Taro from '@tarojs/taro'
 
@@ -12,7 +12,7 @@ export default function Index() {
 
 
   const submit = async (values: any): Promise<void> => {
-    const res = await appluAdopt(values);
+    const res = await applyAdopt(values);
     if (res.code === 200) {
       setTitle('申请成功')
       setShowToast(true)

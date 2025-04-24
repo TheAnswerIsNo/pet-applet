@@ -5,31 +5,27 @@ import {
 } from '@nutui/nutui-react-taro'
 import { petType } from 'src/constant/petType'
 import { sexType } from 'src/constant/sexType'
-import { giveUpAdopt } from 'src/services/adopt'
 import Taro from '@tarojs/taro'
 import { useRef, useState } from 'react'
 
-
+interface uploadRefState {
+  submit: () => void
+}
 export default function Index() {
-  const uploadRef = useRef(null)
-  const formData = useRef({})
 
-  // const submitUpload = () => {
-  //   uploadRef.current.submit()
-  // }
+  const uploadRef = useRef<uploadRefState>(null)
+  const [formData, setFormData] = useState({})
 
-  async function submit(values: any): Promise<void> {
-    const res = await giveUpAdopt(values)
-    if (res.code === 200) {
-      Taro.showToast({
-        title: '提交成功',
-        icon: 'success',
-        duration: 2000
-      })
+
+  function submit(values: any): void {
+    const data = {
+      ...values,
+      sex: values.sex[0],
+      type: values.type[0]
     }
+    setFormData({ ...formData, ...data })
+      ; (uploadRef.current as uploadRefState).submit()
   }
-
-
 
   return (
     <>
@@ -50,19 +46,11 @@ export default function Index() {
             </Button>
           </View>
         }
-        onFinish={(values) => {
-          const data = Object.assign(values, {
-            sex: values.sex[0],
-            type: values.type[0]
-          })
-          formData.current = data
-          console.log(formData.current)
-          uploadRef.current.submit()
-        }}>
+        onFinish={submit}>
         <Form.Item label="照片" name='photos' required >
           <Uploader url='http://localhost:8081/adopt/give-up'
             headers={{ Authorization: Taro.getStorageSync('token') || '' }}
-            name='photos' data={formData.current} ref={uploadRef} autoUpload={false} multiple={true} maxCount={6} />
+            name='photos' data={formData} ref={uploadRef} autoUpload={false} multiple={true} maxCount={6} />
         </Form.Item>
         <View>
           <Tag type="info"> 宠物信息 </Tag>
