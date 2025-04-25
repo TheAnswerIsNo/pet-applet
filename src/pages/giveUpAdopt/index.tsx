@@ -12,7 +12,7 @@ interface uploadRefState {
   submit: () => void
 }
 export default function Index() {
-  const uploadRef = useRef(null)
+  const uploadRef = useRef<uploadRefState>(null)
   const [formData, setFormData] = useState<any>(null)
   return (
     <>
@@ -35,7 +35,7 @@ export default function Index() {
         }
         onFinish={(values) => {
           setFormData(values)
-          uploadRef.current.submit()
+            ; (uploadRef.current as uploadRefState).submit()
         }}>
         <Form.Item label="照片" name='photos' required >
           <Uploader multiple={true}

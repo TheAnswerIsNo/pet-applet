@@ -17,6 +17,8 @@ export default defineAppConfig({
     'pages/applyAdoptDetail/index',
     'pages/adoptForm/index',
     'pages/dynamic/index',
+    'pages/myDynamic/index',
+    'pages/myGiveUpAdopt/index',
   ],
   window: {
     backgroundTextStyle: 'light',

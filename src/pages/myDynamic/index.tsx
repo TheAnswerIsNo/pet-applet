@@ -11,7 +11,7 @@ import {
   Uploader,
   VirtualList,
 } from '@nutui/nutui-react-taro'
-import { getDynamicList, like } from 'src/services/dynamic'
+import { getDynamicList, removeDynamic } from 'src/services/dynamic'
 import Taro from '@tarojs/taro'
 
 export default function Index() {
@@ -20,7 +20,7 @@ export default function Index() {
 
   const getData = async () => {
 
-    const res = await getDynamicList(0)
+    const res = await getDynamicList(1)
     if (res.code === 200) {
       setList(res.data)
     }
@@ -72,9 +72,14 @@ export default function Index() {
     })
   }
 
-  const addLikeNum = async (id: string) => {
-    const res = await like(id)
+  const deleteDynamic = async (id: string) => {
+    const res = await removeDynamic(id)
     if (res.code === 200) {
+      Taro.showToast({
+        title: "删除成功",
+        icon: 'success',
+        duration: 2000
+      })
       getData()
     }
   }
@@ -97,11 +102,11 @@ export default function Index() {
             style={{ padding: '10px', margin: '1px', background: '#a5a5ef', borderRadius: '20px', width: '93%' }}
             src={data.photo}
             title={data.content}
-            tag={<div><p>{data.likeNum} </p> <Tag round type='primary' onClick={() => addLikeNum(data.id)}>点赞</Tag></div>}
+            tag={<div> {data.likeNum} <Tag round type='primary' onClick={() => deleteDynamic(data.id)}>删除</Tag></div>}
           />
         }}
       />
-    </div >
+    </div>
 
   )
 

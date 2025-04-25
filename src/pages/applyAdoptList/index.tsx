@@ -1,4 +1,3 @@
-
 import { useEffect, useState } from 'react'
 import './index.scss'
 import {
@@ -12,7 +11,6 @@ import {
 import Taro from '@tarojs/taro'
 import { petType } from 'src/constant/petType'
 import { petList } from 'src/services/adopt'
-import { log } from 'console'
 
 
 export default function Index() {
@@ -28,7 +26,7 @@ export default function Index() {
   }
 
   async function getPetList(type: string) {
-    const res = await petList(type)
+    const res = await petList(type, 0)
     if (res.code === 200) {
       setList(res.data)
     }

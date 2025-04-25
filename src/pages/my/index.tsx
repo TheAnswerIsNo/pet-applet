@@ -17,6 +17,17 @@ export default function Index() {
     })
   }
 
+  const myDynamicManage = () => {
+    Taro.navigateTo({
+      url: '/pages/myDynamic/index',
+    })
+  }
+
+  const myGiveUpAdopt = () => {
+    Taro.navigateTo({
+      url: '/pages/myGiveUpAdopt/index',
+    })
+  }
 
   const orderListManage = () => {
     Taro.navigateTo({
@@ -34,8 +45,8 @@ export default function Index() {
         <Cell title="地址管理" onClick={addressManage} />
         <Cell title="订单管理" onClick={orderListManage} />
         <Cell title="我的领养" onClick={addressManage} />
-        <Cell title="我的送养" onClick={addressManage} />
-        <Cell title="我的动态" onClick={addressManage} />
+        <Cell title="我的送养" onClick={myGiveUpAdopt} />
+        <Cell title="我的动态" onClick={myDynamicManage} />
       </div>
 
     </div>

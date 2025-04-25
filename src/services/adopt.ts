@@ -19,8 +19,8 @@ export async function applyAdopt(data: any) {
 /**
  * 申请领养
  */
-export async function petList(type: string) {
-  const res = await getData('/adopt/list', { type: type })
+export async function petList(type: string, self: number) {
+  const res = await getData('/adopt/list', { type: type, self: self })
   return res;
 }
 
