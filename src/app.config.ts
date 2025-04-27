@@ -19,6 +19,7 @@ export default defineAppConfig({
     'pages/dynamic/index',
     'pages/myDynamic/index',
     'pages/myGiveUpAdopt/index',
+    "pages/petMedicalRecords/index"
   ],
   window: {
     backgroundTextStyle: 'light',
@@ -26,6 +27,7 @@ export default defineAppConfig({
     navigationBarTitleText: 'WeChat',
     navigationBarTextStyle: 'black'
   },
+  "lazyCodeLoading": "requiredComponents",
   tabBar: {
     list: [{
       pagePath: 'pages/index/index',

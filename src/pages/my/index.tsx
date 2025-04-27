@@ -35,6 +35,12 @@ export default function Index() {
     })
   }
 
+  const petMedicalRecords = () => {
+    Taro.navigateTo({
+      url: '/pages/petMedicalRecords/index',
+    })
+  }
+
   return (
     <div className="index">
       <div style={{ padding: '10px', display: 'flex', alignItems: 'center' }}>
@@ -44,9 +50,9 @@ export default function Index() {
       <div>
         <Cell title="地址管理" onClick={addressManage} />
         <Cell title="订单管理" onClick={orderListManage} />
-        <Cell title="我的领养" onClick={addressManage} />
         <Cell title="我的送养" onClick={myGiveUpAdopt} />
         <Cell title="我的动态" onClick={myDynamicManage} />
+        <Cell title="宠物医疗记录" onClick={petMedicalRecords} />
       </div>
 
     </div>
