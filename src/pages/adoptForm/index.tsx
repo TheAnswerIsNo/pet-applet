@@ -3,18 +3,22 @@ import './index.scss'
 import { View } from '@tarojs/components'
 import { applyAdopt } from 'src/services/adopt'
 import { useState } from 'react'
-import Taro from '@tarojs/taro'
+import Taro, { useRouter } from '@tarojs/taro'
 
 
 export default function Index() {
   const [showToast, setShowToast] = useState(false)
   const [title, setTitle] = useState('')
-
+  const router: any = useRouter();
+  const data = JSON.parse(decodeURIComponent(router.params.item))
 
   const submit = async (values: any): Promise<void> => {
+    values.giveUpAdoptRecordId = data.giveUpAdoptRecordId
+    values.petId = data.petId
+    console.log('values', values);
     const res = await applyAdopt(values);
     if (res.code === 200) {
-      setTitle('申请成功')
+      setTitle('领养宠物申请成功')
       setShowToast(true)
       // 返回领养列表
       Taro.navigateBack({ delta: 2 })
@@ -47,7 +51,7 @@ export default function Index() {
             <Radio value="男神">男神</Radio>
           </Radio.Group>
         </Form.Item>
-        <Form.Item label="年龄" name="age" required>
+        <Form.Item label="年龄" name="age" required initialValue={1}>
           <InputNumber defaultValue={0} />
         </Form.Item>
         <Form.Item label="养宠经验" name="experience" required>
@@ -84,7 +88,7 @@ export default function Index() {
         </Form.Item>
       </Form>
       <Toast
-        duration={1} // 提示时间
+        duration={2} // 提示时间
         title={title}  //提示语
         visible={showToast}
       />

@@ -1,7 +1,7 @@
 import { View } from '@tarojs/components'
 import './index.scss'
 import {
-  Cell, Tag, Form, Uploader, Input, Picker, InputNumber, Radio, Checkbox, Button,
+  Cell, Tag, Form, Uploader, Input, Picker, InputNumber, Radio, Checkbox, Button, Toast,
 } from '@nutui/nutui-react-taro'
 import { petType } from 'src/constant/petType'
 import { sexType } from 'src/constant/sexType'
