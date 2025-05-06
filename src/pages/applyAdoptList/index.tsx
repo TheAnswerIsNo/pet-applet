@@ -25,6 +25,13 @@ export default function Index() {
     })
   }
 
+
+  const changemap = () => {
+    Taro.navigateTo({
+      url: '/pages/map/index',
+    })
+  }
+
   async function getPetList(type: string) {
     const res = await petList(type, 0)
     if (res.code === 200) {
@@ -86,8 +93,11 @@ export default function Index() {
     <div className="index">
       <Row type='flex' wrap='nowrap'>
         <SearchBar shape="round" placeholder='请输入搜索的宠物类型' style={{ height: '40px' }} onChange={handleSearch} />
-        <Button fill="outline" style={{ height: '40px', width: '60px' }} shape='square' onClick={Identification}>
+        <Button type='info' style={{ height: '40px', width: '60px', whiteSpace: 'nowrap' }} onClick={Identification}>
           识别
+        </Button>
+        <Button type='info' style={{ height: '40px', width: '60px', whiteSpace: 'nowrap' }} onClick={changemap}>
+          地图
         </Button>
       </Row>
       <Tabs

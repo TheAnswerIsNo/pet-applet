@@ -10,6 +10,7 @@ export default defineAppConfig({
     'pages/cancelOrder/index',
     'pages/payment/index',
     'pages/my/index',
+    'pages/map/index',
     'pages/cart/index',
     'pages/adopt/index',
     'pages/giveUpAdopt/index',
@@ -50,5 +51,14 @@ export default defineAppConfig({
       text: '我的'
     },
     ]
+  },
+  requiredPrivateInfos: [
+    "getLocation",
+    "chooseLocation"
+  ],
+  permission: {
+    "scope.userLocation": {
+      "desc": "你的位置信息将用于小程序位置接口的效果展示"
+    }
   }
 })
