@@ -7,6 +7,7 @@ import {
   SearchBar,
   Tabs,
   Tag,
+  Toast,
 } from '@nutui/nutui-react-taro'
 import Taro from '@tarojs/taro'
 import { petType } from 'src/constant/petType'
@@ -16,6 +17,8 @@ import { petList } from 'src/services/adopt'
 export default function Index() {
   const [tabvalue, setTabvalue] = useState<string | number>('0')
   const [list, setList] = useState<Array<any>>([])
+  const [similarList, setSimilarList] = useState<Array<string>>([])
+  const [showToast, setShowToast] = useState(false)
 
   const openDetail = (item: any) => {
     // 使用 JSON.stringify 将对象转为字符串
@@ -41,7 +44,8 @@ export default function Index() {
 
   useEffect(() => {
     getPetList(petType[tabvalue].value)
-  }, [])
+  }, [tabvalue])
+
 
   const handleSearch = (value: string) => {
     // 比对petType中的label值 模糊匹配
@@ -66,7 +70,7 @@ export default function Index() {
             if (result.code === 200) {
               // 比对已经存在的options res = []
               const data = result.data;
-              console.log(data);
+              setSimilarList(data)
               const simList = new Array<string>;
               data.map((item: string) => {
                 petType.map((pet: any) => {
@@ -75,12 +79,9 @@ export default function Index() {
                   }
                 })
               })
+              setShowToast(true)
               setTabvalue(simList[0])
-              Taro.showToast({
-                title: "识别成功",
-                icon: 'success',
-                duration: 2000
-              })
+
             }
           }
         })
@@ -128,6 +129,12 @@ export default function Index() {
           } </Tabs.TabPane>
         })}
       </Tabs>
+      <Toast
+        duration={2}
+        title="识别结果"
+        content={similarList.join(',')}
+        visible={showToast}
+      />
     </div >
   )
 }
