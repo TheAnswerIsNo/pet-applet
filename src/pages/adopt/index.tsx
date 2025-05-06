@@ -2,13 +2,10 @@ import './index.scss'
 import { Cell, Row, Image, Tag } from '@nutui/nutui-react-taro'
 import { View } from '@tarojs/components'
 import Taro from '@tarojs/taro'
-
-
+import adoptImage from '../../static/领养.png'
+import giveUpImage from '../../static/送养.png'
 
 export default function Index() {
-
-  const src =
-    'https://storage.360buyimg.com/imgtools/e067cd5b69-07c864c0-dd02-11ed-8b2c-d7f58b17086a.png'
 
   const giveUpAdopt = () => {
     Taro.navigateTo({
@@ -30,7 +27,7 @@ export default function Index() {
             领养
           </Tag>
         </View>
-        <Image src={src} height={200} />
+        <Image src={adoptImage} height={200} />
       </Cell>
       <Cell>
         <View onClick={giveUpAdopt}>
@@ -38,7 +35,7 @@ export default function Index() {
             送养
           </Tag>
         </View>
-        <Image src={src} height={200} />
+        <Image src={giveUpImage} height={200} />
       </Cell>
     </Row>
 

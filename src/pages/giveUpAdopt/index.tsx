@@ -5,15 +5,43 @@ import {
 } from '@nutui/nutui-react-taro'
 import { petType } from 'src/constant/petType'
 import { sexType } from 'src/constant/sexType'
-import { useRef, useState } from 'react'
 import Taro from '@tarojs/taro'
 
-interface uploadRefState {
-  submit: () => void
-}
 export default function Index() {
-  const uploadRef = useRef<uploadRefState>(null)
-  const [formData, setFormData] = useState<any>(null)
+
+  const submit = (value: any) => {
+    Taro.uploadFile({
+      url: 'http://localhost:8081/adopt/give-up',
+      filePath: value.photo[0].url,
+      name: 'photo',
+      header: { Authorization: Taro.getStorageSync('token') || '' },
+      formData: {
+        nickname: value.nickname,
+        age: value.age,
+        type: value.type[0],
+        sex: value.sex[0],
+        vaccine: value.vaccine,
+        sterilization: value.sterilization,
+        deworming: value.deworming,
+        source: value.source,
+        bodyType: value.bodyType,
+        hair: value.hair,
+        characteristics: value.characteristics,
+        description: value.description
+      },
+      success: () => {
+        Taro.showToast({
+          title: "发布宠物信息成功",
+          icon: 'success',
+          duration: 2000
+        })
+        Taro.navigateBack({
+          delta: 1
+        })
+      }
+    })
+  }
+
   return (
     <>
       <Form
@@ -34,19 +62,11 @@ export default function Index() {
           </View>
         }
         onFinish={(values) => {
-          setFormData(values)
-            ; (uploadRef.current as uploadRefState).submit()
+          submit(values)
         }}>
-        <Form.Item label="照片" name='photos' required >
-          <Uploader multiple={true}
-            ref={uploadRef}
-            maxCount={6}
-            url='http://localhost:8081/adopt/give-up'
-            headers={{
-              Authorization: Taro.getStorageSync('token') || ''
-            }}
+        <Form.Item label="照片" name='photo' required >
+          <Uploader
             autoUpload={false}
-            data={formData}
           />
         </Form.Item>
         <View>
@@ -54,8 +74,8 @@ export default function Index() {
           <Form.Item label="昵称" name="nickname" required>
             <Input placeholder="请输入昵称" />
           </Form.Item>
-          <Form.Item label="年龄" name="age" required initialValue={0}>
-            <InputNumber defaultValue={0} />
+          <Form.Item label="年龄" name="age" required initialValue={1}>
+            <InputNumber defaultValue={1} />
           </Form.Item>
         </View>
         <View>
@@ -79,7 +99,7 @@ export default function Index() {
                     }}
                     className="nutui-cell--clickable"
                     title={
-                      value.length ? petType.filter((po) => po.value === value[0])[0]?.label : 'Please select'
+                      value.length ? petType.filter((po) => po.value === value[0])[0]?.label : '请选择类别'
                     }
                     align="center"
                   />
@@ -106,7 +126,7 @@ export default function Index() {
                     }}
                     className="nutui-cell--clickable"
                     title={
-                      value.length ? sexType.filter((po) => po.value === value[0])[0]?.label : 'Please select'
+                      value.length ? sexType.filter((po) => po.value === value[0])[0]?.label : '请选择性别'
                     }
                     align="center"
                   />
