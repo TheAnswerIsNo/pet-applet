@@ -107,10 +107,10 @@ export default function Index() {
                 src={val.photos[0]}
                 title={val.nickname}
                 tag={
-                  <div>
-                    <Tag>{val.age}</Tag>
-                    <Tag>{val.sex}</Tag>
-                    <Tag>{val.type}</Tag>
+                  <div style={{ display: 'flex', flexDirection: 'column' }}>
+                    <Tag type='success' style={{ margin: '3px' }}>年龄: {val.age}</Tag>
+                    <Tag type='primary' style={{ margin: '3px' }}>性别: {val.sex}</Tag>
+                    <Tag type='info' style={{ margin: '3px' }}>类型: {val.type}</Tag>
                   </div>
                 }
               />

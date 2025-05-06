@@ -43,7 +43,6 @@ export default function Index() {
         Dialog.close('dynamic')
       }
     })
-
   }
 
   const openDialog = () => {
