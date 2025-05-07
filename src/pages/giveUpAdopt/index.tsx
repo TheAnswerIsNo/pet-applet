@@ -26,7 +26,7 @@ export default function Index() {
         source: value.source,
         bodyType: value.bodyType,
         hair: value.hair,
-        characteristics: value.characteristics,
+        characteristics: JSON.stringify(value.characteristics),
         description: value.description
       },
       success: () => {
@@ -180,7 +180,7 @@ export default function Index() {
             </Radio.Group>
           </Form.Item>
         </View>
-        <Form.Item label="特点" name="characteristics" required initialValue={"调皮"}>
+        <Form.Item label="特点" name="characteristics" required >
           <Checkbox.Group>
             <Checkbox label='调皮' value="调皮" />
             <Checkbox label='活动量大' value="活动量大" />

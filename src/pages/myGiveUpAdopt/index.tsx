@@ -7,6 +7,7 @@ import {
 import Taro, { useDidShow } from '@tarojs/taro'
 import { petList } from 'src/services/adopt'
 import { petType } from 'src/constant/petType'
+import { sexType } from 'src/constant/sexType'
 
 
 export default function Index() {
@@ -29,7 +30,6 @@ export default function Index() {
   }
 
   useDidShow(() => {
-    console.log(111111);
     getPetList()
   })
 
@@ -47,7 +47,7 @@ export default function Index() {
           tag={
             <div style={{ display: 'flex', flexDirection: 'column' }}>
               <Tag type='success' style={{ margin: '3px' }}>年龄: {val.age}</Tag>
-              <Tag type='warning' style={{ margin: '3px' }}>性别: {val.sex}</Tag>
+              <Tag type='warning' style={{ margin: '3px' }}>性别: {sexType[val.sex - 1].label}</Tag>
               <Tag type='info' style={{ margin: '3px' }}>类型: {petType[val.type].label}</Tag>
             </div>
           }

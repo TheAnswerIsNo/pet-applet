@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import Taro from "@tarojs/taro";
 import { petType } from "src/constant/petType";
 import { deleteAdopt } from "src/services/adopt";
+import { sexType } from "src/constant/sexType";
 
 const goodsDetail = () => {
   const [item, setItem] = useState<any>({})
@@ -108,14 +109,14 @@ const goodsDetail = () => {
       <div style={{ width: '100%', textAlign: 'left', margin: '12px 0' }}>昵称: <text >{data.nickname}</text></div>
       <div style={{ width: '100%', textAlign: 'left', margin: '12px 0' }}>年龄: <text >{data.age}</text></div>
       <div style={{ width: '100%', textAlign: 'left', margin: '12px 0' }}>类别: <text >{petType[data.type].label}</text></div>
-      <div style={{ width: '100%', textAlign: 'left', margin: '12px 0' }}>性别: <text >{data.sex}</text></div>
+      <div style={{ width: '100%', textAlign: 'left', margin: '12px 0' }}>性别: <text >{sexType[data.sex - 1].label}</text></div>
       <div style={{ width: '100%', textAlign: 'left', margin: '12px 0' }}>疫苗: <text >{data.vaccine}</text></div>
       <div style={{ width: '100%', textAlign: 'left', margin: '12px 0' }}>绝育: <text >{data.sterilization}</text></div>
       <div style={{ width: '100%', textAlign: 'left', margin: '12px 0' }}>驱虫: <text >{data.deworming}</text></div>
       <div style={{ width: '100%', textAlign: 'left', margin: '12px 0' }}>来源: <text >{data.source}</text></div>
       <div style={{ width: '100%', textAlign: 'left', margin: '12px 0' }}>体型: <text >{data.bodyType}</text></div>
       <div style={{ width: '100%', textAlign: 'left', margin: '12px 0' }}>毛发: <text >{data.hair}</text></div>
-      <div style={{ width: '100%', textAlign: 'left', margin: '12px 0' }}>特点: <text >{data.characteristics}</text></div>
+      <div style={{ width: '100%', textAlign: 'left', margin: '12px 0' }}>特点: <text >{data.characteristics.join(',')}</text></div>
       <div style={{ width: '100%', textAlign: 'left', margin: '12px 0' }}>描述: <text >{data.description}</text></div>
     </div>
     <div style={{ width: '100%', position: 'fixed', bottom: '12px', display: 'flex', justifyContent: 'center' }}>
